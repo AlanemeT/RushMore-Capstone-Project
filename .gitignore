@@ -1,0 +1,4 @@
+# Environments/ files to ignore
+.env
+requirements.txt
+config.yaml
