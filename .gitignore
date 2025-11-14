@@ -1,4 +1,7 @@
-# Environments/ files to ignore
+# Virtual environments
+rushmorenv/
+
+# Environment variables
 .env
-requirements.txt
 config.yaml
+
