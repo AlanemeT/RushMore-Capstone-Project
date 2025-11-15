@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS Order_Items (
     price_at_time_of_order NUMERIC(10, 2) NOT NULL
 );
 
-##Due to this error psycopg2.errors.StringDataRightTruncation: value too long for type character varying(20)
-##Alter column for phone number for both store and customer to relax the schema widen the column
-##Increase the phone number character from 20 to 30
+--Due to this error psycopg2.errors.StringDataRightTruncation: value too long for type character varying(20)
+--Alter column for phone number for both store and customer to relax the schema widen the column
+--Increase the phone number character from 20 to 30
 
