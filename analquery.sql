@@ -1,3 +1,5 @@
+BEGIN;
+
 --1) Total sales revenue per store
 SELECT
   s.store_id,
@@ -48,3 +50,10 @@ SELECT
 FROM orders o
 GROUP BY hour_of_day
 ORDER BY orders_count DESC, hour_of_day;
+
+COMMIT;
+
+
+
+
+

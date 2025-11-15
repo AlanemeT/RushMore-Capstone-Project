@@ -149,11 +149,18 @@ def generate_menu_items(fake, n):
             name = random.choice(["Brownie", "Ice Cream", "Cheesecake"])
             size = "N/A"
             price = round(random.uniform(2.0, 6.5), 2)
-        candidate = f"{name} ({size})" if size not in ["N/A", ""] else name
+        # Replace "N/A" size with "Regular"
+        normalized_size = size if size != "N/A" else "Regular"
+
+        # Create a unique display name
+        candidate = f"{name} ({normalized_size})" if normalized_size != "Regular" else name
+
         if candidate not in names:
             names.add(candidate)
-            rows.append((name, cat, None if size == "N/A" else size, price))
+            rows.append((name, cat, normalized_size, price))
+
     return rows
+
 
 
 def generate_item_ingredients(num_items, num_ingredients):
@@ -334,3 +341,20 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# rushmore/populate.py
+# 1) load env/yaml
+# 2) connect via psycopg2
+# 3) helper: executemany batched inserts, commit per batch
+# 4) seed STORES (3–5 cities), INGREDIENTS (40–50), MENU_ITEMS (20–30)
+#    - For each menu item, assign 2–6 ingredients & quantities into ITEM_INGREDIENTS
+# 5) seed CUSTOMERS (>= 1,000) with unique email/phone
+# 6) seed ORDERS (>= 5,000) with timestamps this year, random store & customer
+# 7) for each order, create ~3 ORDER_ITEMS:
+#      - choose item_id at random
+#      - quantity 1–4
+#      - price_at_time_of_order = current Menu_Items.price (copied at insert)
+# 8) compute & update ORDERS.total_amount
+# 9) sanity checks (counts, null scans, FK violations, price sums)
+# 10) print summary row counts
